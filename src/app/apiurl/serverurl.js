@@ -1,1 +1,1 @@
-export const apiKey = "localhost:8000/"
+export const apiKey = "http://127.0.0.1:8000/"

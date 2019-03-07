@@ -50,20 +50,20 @@ export class AuthenticationService {
   login(credentials) {
     return new Promise((resolve, reject) => {
       let headers = new Headers();
-      headers.append('Access-Control-Allow-Origin', '*')
-      headers.append('Access-Control-Allow-Origin', 'POST, GET, OPTIONS, PUT')
-      headers.append('Accept', 'application/json')
+      headers.append("Access-Control-Allow-Origin", "*");
+      headers.append("Access-Control-Allow-Origin", "POST, GET, OPTIONS, PUT");
+      headers.append("Accept", "application/json");
       headers.append("Content-Type", "application/json");
 
       this.http
-        .post(apiKey + "api/users/login", JSON.stringify(credentials), {
+        .post(apiKey + "api/user/login", JSON.stringify(credentials), {
           headers: headers
         })
         .subscribe(
           res => {
             let data = res.json();
-            this.token = data.token
-            this.storage.set('token', data.token)
+            this.token = data.token;
+            this.storage.set("token", data.token);
             this.authenticationState.next(true);
             resolve(data);
           },
@@ -79,7 +79,7 @@ export class AuthenticationService {
 
   logout() {
     //this.storage.remove('token')
-    return this.storage.remove('token').then(() => {
+    return this.storage.remove("token").then(() => {
       this.authenticationState.next(false);
     });
   }
@@ -88,15 +88,16 @@ export class AuthenticationService {
     return this.authenticationState.value;
   }
 
-  checkToken() {//checkToken
+  checkToken() {
+    //checkToken
     return new Promise((resolve, reject) => {
-      this.storage.get('token').then((value) => {
-        if(value){
-          this.token = value
-        resolve(this.token)
+      this.storage.get("token").then(value => {
+        if (value) {
+          this.token = value;
+          resolve(this.token);
         }
-      })
-    })
+      });
+    });
     /*return this.storage.get(TOKEN_KEY).then(res => {
       if (res) {
         this.authenticationState.next(true);
